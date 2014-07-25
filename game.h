@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QPointer>
 #include <QGraphicsScene>
+#include <landscape.h>
 
 class Game : public QObject
 {
@@ -19,6 +20,7 @@ public slots:
 
 private:
     QPointer<QGraphicsScene> m_pScene;
+    LandScape *m_landScape;
 };
 
 #endif // GAME_H

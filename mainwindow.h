@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QDateTime>
 #include <QPainter>
 #include <QTimer>
 #include <game.h>
