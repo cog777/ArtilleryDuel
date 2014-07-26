@@ -20,6 +20,7 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h \
     game.h \
     landscape.h \
-    settings.h
+    settings.h \
+    debug.h
 
 FORMS    += mainwindow.ui

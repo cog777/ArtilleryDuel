@@ -18,6 +18,8 @@ public:
 
     void generateLandScape(const QPoint &point1, const QPoint &point2);
 
+    void generateLandScapeOutLine(const QPoint &point1, const QPoint &point2);
+    void generateLandScapePoints(const QPoint &point1, const QPoint &point2);
 private:
     QImage *m_pImage;
     QPainter *m_pImagePainter;
