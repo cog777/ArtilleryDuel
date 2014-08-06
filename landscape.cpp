@@ -8,6 +8,8 @@ LandScape::LandScape(QGraphicsObject *parent)
     m_pImage->fill(Qt::blue);
     m_pImagePainter = new QPainter(m_pImage);
     m_pImagePainter->setPen(QPen(Qt::green));
+
+    m_heights.resize(WINDOW_WIDTH);
 }
 
 LandScape::~LandScape()
@@ -69,9 +71,10 @@ void LandScape::generateLandScapePoints(const QPoint &point1, const QPoint &poin
         const QPoint middlePoint(new_x, new_y);
 
         m_pImagePainter->drawPoint(middlePoint);
+        m_heights[middlePoint.x()] = middlePoint.y();
 
-        generateLandScape(point1, middlePoint);
-        generateLandScape(middlePoint, point2);
+        generateLandScapePoints(point1, middlePoint);
+        generateLandScapePoints(middlePoint, point2);
     }
 }
 
@@ -114,12 +117,14 @@ void LandScape::generateLandScapeOutLine(const QPoint &point1, const QPoint &poi
         new_y = qrand() % ((high + 1) - low) + low ;
         const QPoint middlePoint(new_x, new_y);
 
-        generateLandScape(point1, middlePoint);
-        generateLandScape(middlePoint, point2);
+        generateLandScapeOutLine(point1, middlePoint);
+        generateLandScapeOutLine(middlePoint, point2);
     }
     else
     {
         m_pImagePainter->drawLine(point1, point2);
+        m_heights[point1.x()] = point1.y();
+        m_heights[point2.x()] = point2.y();
     }
 }
 
@@ -156,8 +161,9 @@ void LandScape::generateLandScape(const QPoint &point1, const QPoint &point2)
             high = point2.y();
             low = point1.y();
         }
+
         // qrand() % ((High + 1) - Low) + Low)
-        new_y = qrand() % ((high + 1) - low) + low ;
+        new_y = qrand() % ((high + 1) - low) + low;
         const QPoint middlePoint(new_x, new_y);
 
         generateLandScape(point1, middlePoint);
@@ -167,5 +173,7 @@ void LandScape::generateLandScape(const QPoint &point1, const QPoint &point2)
     {
         m_pImagePainter->drawLine(point1, QPoint(point1.x(), LANDSCAPE_HEIGHT));
         m_pImagePainter->drawLine(point2, QPoint(point2.x(), LANDSCAPE_HEIGHT));
+        m_heights[point1.x()] = point1.y();
+        m_heights[point2.x()] = point2.y();
     }
 }
