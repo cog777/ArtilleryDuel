@@ -9,7 +9,7 @@ LandScape::LandScape(QGraphicsObject *parent)
     m_pImagePainter = new QPainter(m_pImage);
     m_pImagePainter->setPen(QPen(Qt::green));
 
-    m_heights.resize(WINDOW_WIDTH);
+    m_heights.resize(WINDOW_WIDTH + 1);
 }
 
 LandScape::~LandScape()
