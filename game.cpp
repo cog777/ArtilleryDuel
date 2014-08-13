@@ -17,13 +17,11 @@ void Game::initialize()
 {
     m_pScene->addItem(m_landScape);
 
-    m_landScape->generateLandScape(LANDSCAPE_POINT1, QPoint(LANDSCAPE_XPART1, WINDOW_HEIGHT));
-    m_landScape->generateLandScape(QPoint(LANDSCAPE_XPART1, m_landScape->m_heights.at(LANDSCAPE_XPART1)),
-                                   QPoint(LANDSCAPE_XPART2, qrand() % ((WINDOW_HEIGHT + 1) - 1) + 1));
-    m_landScape->generateLandScape(QPoint(LANDSCAPE_XPART2, m_landScape->m_heights.at(LANDSCAPE_XPART2)),
-                                   QPoint(LANDSCAPE_XPART3, qrand() % ((WINDOW_HEIGHT + 1) - 1) + 1));
-    m_landScape->generateLandScape(QPoint(LANDSCAPE_XPART3, m_landScape->m_heights.at(LANDSCAPE_XPART3)),
-                                   LANDSCAPE_POINT2);
+    // qrand() % ((High + 1) - Low) + Low)
+    m_landScape->generateLandScape(QPoint(LANDSCAPE_XPOS1, qrand() % ((WINDOW_WIDTH + 1) - 1) + 1), QPoint(LANDSCAPE_XPOS2, qrand() % ((WINDOW_WIDTH + 1) - 1) + 1));
+    m_landScape->generateLandScape(QPoint(LANDSCAPE_XPOS2, m_landScape->m_heights[LANDSCAPE_XPOS2]), QPoint(LANDSCAPE_XPOS3, qrand() % ((WINDOW_WIDTH + 1) - 1) + 1));
+    m_landScape->generateLandScape(QPoint(LANDSCAPE_XPOS3, m_landScape->m_heights[LANDSCAPE_XPOS3]), QPoint(LANDSCAPE_XPOS4, qrand() % ((WINDOW_WIDTH + 1) - 1) + 1));
+    m_landScape->generateLandScape(QPoint(LANDSCAPE_XPOS4, m_landScape->m_heights[LANDSCAPE_XPOS4]), QPoint(LANDSCAPE_XPOS5, qrand() % ((WINDOW_WIDTH + 1) - 1) + 1));
     // Probald ki oket
 //    m_landScape->generateLandScapePoints(LANDSCAPE_POINT1, LANDSCAPE_POINT2);
 //    m_landScape->generateLandScapeOutLine(LANDSCAPE_POINT1, LANDSCAPE_POINT2);
