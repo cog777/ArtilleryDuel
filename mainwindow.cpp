@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <settings.h>
+#include "settings.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,15 +21,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::initializeGUI()
 {
+    showFullScreen();
     m_pScene = new QGraphicsScene(ui->graphicsView);
-    m_pGame = new Game(m_pScene, this);
-
-    setMinimumSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    m_pGame = new Game(m_pScene, ui->graphicsView->width(), ui->graphicsView->height(), this);
 
     ui->graphicsView->setScene(m_pScene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 
-    m_pGame->initialize();
+    //m_pGame->initialize();
 }
 
 void MainWindow::on_exitButton_clicked()

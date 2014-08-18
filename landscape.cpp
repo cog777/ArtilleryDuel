@@ -2,14 +2,15 @@
 #include "debug.h"
 #include <QPen>
 
-LandScape::LandScape(QGraphicsObject *parent)
+LandScape::LandScape(qint32 width, qint32 heigth, QGraphicsObject *parent) :
+    m_width(width), m_height(heigth)
 {
-    m_pImage = new QImage(LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT, QImage::Format_RGB32);
+    m_pImage = new QImage(m_width, m_height, QImage::Format_RGB32);
     m_pImage->fill(Qt::blue);
     m_pImagePainter = new QPainter(m_pImage);
     m_pImagePainter->setPen(QPen(Qt::green));
 
-    m_heights.resize(WINDOW_WIDTH + 1);
+    m_heights.resize(m_width + 1);
 }
 
 LandScape::~LandScape()
@@ -17,8 +18,7 @@ LandScape::~LandScape()
 
 QRectF LandScape::boundingRect() const
 {
-    return QRectF(0, 0,
-                  LANDSCAPE_WIDTH, LANDSCAPE_HEIGHT);
+    return QRectF(0, 0, m_width, m_height);
 }
 
 void LandScape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -26,7 +26,7 @@ void LandScape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawImage(QRectF(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT), *m_pImage);
+    painter->drawImage(QRectF(0, 0, m_width, m_height), *m_pImage);
 }
 
 // Pontokat hasznal:
@@ -171,8 +171,8 @@ void LandScape::generateLandScape(const QPoint &point1, const QPoint &point2)
     }
     else
     {
-        m_pImagePainter->drawLine(point1, QPoint(point1.x(), LANDSCAPE_HEIGHT));
-        m_pImagePainter->drawLine(point2, QPoint(point2.x(), LANDSCAPE_HEIGHT));
+        m_pImagePainter->drawLine(point1, QPoint(point1.x(), m_height));
+        m_pImagePainter->drawLine(point2, QPoint(point2.x(), m_height));
         m_heights[point1.x()] = point1.y();
         m_heights[point2.x()] = point2.y();
     }

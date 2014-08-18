@@ -6,12 +6,12 @@
 #include <QImage>
 #include <QPainter>
 #include <QVector>
-#include <settings.h>
+#include "settings.h"
 
 class LandScape : public QGraphicsObject
 {
 public:
-    LandScape(QGraphicsObject *parent = 0);
+    LandScape(qint32 width, qint32 heigth, QGraphicsObject *parent = 0);
     virtual ~LandScape();
 
     QRectF boundingRect() const;
@@ -27,6 +27,8 @@ public:
 private:
     QImage *m_pImage;
     QPainter *m_pImagePainter;
+    qint32 m_width;
+    qint32 m_height;
 };
 
 #endif // LANDSCAPE_H
