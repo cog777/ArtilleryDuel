@@ -15,12 +15,19 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     game.cpp \
-    landscape.cpp
+    landscape.cpp \
+    tankfactory.cpp \
+    tank.cpp
 
 HEADERS  += mainwindow.h \
     game.h \
     landscape.h \
     settings.h \
-    debug.h
+    debug.h \
+    tankfactory.h \
+    tank.h
 
 FORMS    += mainwindow.ui
+
+RESOURCES += \
+    resources.qrc

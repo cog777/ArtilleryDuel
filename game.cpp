@@ -1,6 +1,6 @@
 #include "game.h"
 #include <QDebug>
-#include <settings.h>
+#include "settings.h"
 
 Game::Game(QPointer<QGraphicsScene> pScene, qint32 width, qint32 height, QObject *parent) :
     QObject(parent), m_width(width), m_height(height)
@@ -20,7 +20,7 @@ void Game::initialize()
     const qint32 LANDSCAPE_XPOS1 = 0;
     const qint32 LANDSCAPE_XPOS2 = m_width / 4;
     const qint32 LANDSCAPE_XPOS3 = m_width / 2;
-    const qint32 LANDSCAPE_XPOS4 = LANDSCAPE_XPOS1 + LANDSCAPE_XPOS2;
+    const qint32 LANDSCAPE_XPOS4 = LANDSCAPE_XPOS2 + LANDSCAPE_XPOS3;
     const qint32 LANDSCAPE_XPOS5 = m_width;
     // qrand() % ((High + 1) - Low) + Low)
     m_landScape->generateLandScape(QPoint(LANDSCAPE_XPOS1, qrand() % ((m_width + 1) - 1) + 1), QPoint(LANDSCAPE_XPOS2, qrand() % ((m_width + 1) - 1) + 1));
@@ -30,4 +30,7 @@ void Game::initialize()
     // Probald ki oket
 //    m_landScape->generateLandScapePoints(LANDSCAPE_POINT1, LANDSCAPE_POINT2);
 //    m_landScape->generateLandScapeOutLine(LANDSCAPE_POINT1, LANDSCAPE_POINT2);
+    m_testTank = TankFactory::buildTank(10, 50, 0);
+
+    m_pScene->addItem(m_testTank);
 }

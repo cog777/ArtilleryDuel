@@ -11,7 +11,7 @@
 class LandScape : public QGraphicsObject
 {
 public:
-    LandScape(qint32 width, qint32 heigth, QGraphicsObject *parent = 0);
+    LandScape(qint32 &width, qint32 &heigth, QGraphicsObject *parent = 0);
     virtual ~LandScape();
 
     QRectF boundingRect() const;

@@ -2,13 +2,13 @@
 #include "debug.h"
 #include <QPen>
 
-LandScape::LandScape(qint32 width, qint32 heigth, QGraphicsObject *parent) :
-    m_width(width), m_height(heigth)
+LandScape::LandScape(qint32 &width, qint32 &heigth, QGraphicsObject *parent) :
+    QGraphicsObject(parent), m_width(width), m_height(heigth)
 {
     m_pImage = new QImage(m_width, m_height, QImage::Format_RGB32);
     m_pImage->fill(Qt::blue);
     m_pImagePainter = new QPainter(m_pImage);
-    m_pImagePainter->setPen(QPen(Qt::green));
+    m_pImagePainter->setPen(QPen(LANDSCAPE_COLOR));
 
     m_heights.resize(m_width + 1);
 }

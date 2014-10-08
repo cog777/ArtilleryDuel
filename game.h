@@ -4,7 +4,10 @@
 #include <QObject>
 #include <QPointer>
 #include <QGraphicsScene>
-#include <landscape.h>
+#include <QVector>
+#include "landscape.h"
+#include "tank.h"
+#include "tankfactory.h"
 
 class Game : public QObject
 {
@@ -21,6 +24,7 @@ public slots:
 private:
     QPointer<QGraphicsScene> m_pScene;
     LandScape *m_landScape;
+    Tank *m_testTank;
     qint32 m_width;
     qint32 m_height;
 };

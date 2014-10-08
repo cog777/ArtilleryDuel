@@ -27,8 +27,6 @@ void MainWindow::initializeGUI()
 
     ui->graphicsView->setScene(m_pScene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
-
-    //m_pGame->initialize();
 }
 
 void MainWindow::on_exitButton_clicked()
