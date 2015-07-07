@@ -13,7 +13,7 @@ class Game : public QObject
 {
     Q_OBJECT
 public:
-    explicit Game(QPointer<QGraphicsScene> pScene, qint32 width, qint32 height, QObject *parent = 0);
+	explicit Game(QPointer<QGraphicsScene> pScene, qint32 &width, qint32 &height, QObject *parent = 0);
     virtual ~Game();
 
 signals:

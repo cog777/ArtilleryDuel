@@ -23,7 +23,9 @@ void MainWindow::initializeGUI()
 {
     showFullScreen();
     m_pScene = new QGraphicsScene(ui->graphicsView);
-    m_pGame = new Game(m_pScene, ui->graphicsView->width(), ui->graphicsView->height(), this);
+	qint32 width = ui->graphicsView->width();
+	qint32 height = ui->graphicsView->height();
+	m_pGame = new Game(m_pScene, width, height, this);
 
     ui->graphicsView->setScene(m_pScene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);

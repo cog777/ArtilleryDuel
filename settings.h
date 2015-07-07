@@ -4,10 +4,7 @@
 #include <QPoint>
 #include <QColor>
 
-const qint32 TANK_SIZEX = 30;
-const qint32 TANK_SIZEY = 20;
-const QColor TANK_COLOR = QColor("brown");
-
 const QColor LANDSCAPE_COLOR = QColor("green");
+const QColor BACKGROUND_COLOR = QColor("blue");
 
 #endif // SETTINGS_H

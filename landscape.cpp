@@ -6,7 +6,7 @@ LandScape::LandScape(qint32 &width, qint32 &heigth, QGraphicsObject *parent) :
     QGraphicsObject(parent), m_width(width), m_height(heigth)
 {
     m_pImage = new QImage(m_width, m_height, QImage::Format_RGB32);
-    m_pImage->fill(Qt::blue);
+	m_pImage->fill(BACKGROUND_COLOR);
     m_pImagePainter = new QPainter(m_pImage);
     m_pImagePainter->setPen(QPen(LANDSCAPE_COLOR));
 
