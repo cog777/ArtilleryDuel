@@ -14,14 +14,13 @@ class Game : public QObject
     Q_OBJECT
 public:
 	explicit Game(QPointer<QGraphicsScene> pScene, qint32 &width, qint32 &height, QObject *parent = 0);
-    virtual ~Game();
-
-signals:
+	~Game();
 
 public slots:
     void initialize();
 
 private:
+	void generateLandScape();
     QPointer<QGraphicsScene> m_pScene;
     LandScape *m_landScape;
     Tank *m_testTank;

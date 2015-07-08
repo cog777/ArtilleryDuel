@@ -4,10 +4,10 @@
 
 Game::Game(QPointer<QGraphicsScene> pScene, qint32 &width, qint32 &height, QObject *parent)
 	: QObject(parent),
+	  m_pScene(pScene),
 	  m_width(width),
 	  m_height(height)
 {
-    m_pScene = pScene;
     m_pScene->setSceneRect(0, 0, m_width, m_height);
     m_landScape = new LandScape(m_width, m_height);
     initialize();
@@ -18,22 +18,25 @@ Game::~Game()
 
 void Game::initialize()
 {
-    m_pScene->addItem(m_landScape);
-    const qint32 LANDSCAPE_XPOS1 = 0;
-    const qint32 LANDSCAPE_XPOS2 = m_width / 4;
-    const qint32 LANDSCAPE_XPOS3 = m_width / 2;
-    const qint32 LANDSCAPE_XPOS4 = LANDSCAPE_XPOS2 + LANDSCAPE_XPOS3;
-    const qint32 LANDSCAPE_XPOS5 = m_width;
-    // qrand() % ((High + 1) - Low) + Low)
-	m_landScape->generateLandScape(QPoint(LANDSCAPE_XPOS1, qrand() % ((m_width + 1) - 1) + 1), QPoint(LANDSCAPE_XPOS2, qrand() % ((m_width + 1) - 1) + 1));
-	m_landScape->generateLandScape(QPoint(LANDSCAPE_XPOS2, m_landScape->m_heights[LANDSCAPE_XPOS2]), QPoint(LANDSCAPE_XPOS3, qrand() % ((m_width + 1) - 1) + 1));
-	m_landScape->generateLandScape(QPoint(LANDSCAPE_XPOS3, m_landScape->m_heights[LANDSCAPE_XPOS3]), QPoint(LANDSCAPE_XPOS4, qrand() % ((m_width + 1) - 1) + 1));
-	m_landScape->generateLandScape(QPoint(LANDSCAPE_XPOS4, m_landScape->m_heights[LANDSCAPE_XPOS4]), QPoint(LANDSCAPE_XPOS5, qrand() % ((m_width + 1) - 1) + 1));
+	m_pScene->addItem(m_landScape);
 
-	// Probald ki oket
-//	m_landScape->generateLandScapePoints(QPoint(LANDSCAPE_XPOS1, qrand() % ((m_width + 1) - 1) + 1), QPoint(LANDSCAPE_XPOS2, qrand() % ((m_width + 1) - 1) + 1));
-//	m_landScape->generateLandScapeOutLine(QPoint(LANDSCAPE_XPOS1, qrand() % ((m_width + 1) - 1) + 1), QPoint(LANDSCAPE_XPOS2, qrand() % ((m_width + 1) - 1) + 1));
-    m_testTank = TankFactory::buildTank(10, 50, 0);
+	const qint32 unit = m_width / GROUNDSPLIT;
+	for(int i = 0; i < GROUNDSPLIT; i++)
+	{
+		// qrand() % ((High + 1) - Low) + Low)
+		qint32 prevHeight;
+		if(i == 0) prevHeight = qrand() % ((MIN_MOUNTAIN_HEIGHT + 1) - MAX_MOUNTAIN_HEIGHT) + MAX_MOUNTAIN_HEIGHT;
+		else prevHeight = m_landScape->height(unit * i);
 
-    m_pScene->addItem(m_testTank);
+		qint32 nextHeight;
+		if(i == 0 || i == GROUNDSPLIT - 1 || i == GROUNDSPLIT - 2) nextHeight = qrand() % ((MIN_MOUNTAIN_HEIGHT + 1) - MAX_MOUNTAIN_HEIGHT) + MAX_MOUNTAIN_HEIGHT;
+		else nextHeight = qrand() % ((m_height + 1) - 1) + 1;
+
+		const QPoint point1 = QPoint(unit * i, prevHeight);
+		const QPoint point2 = QPoint(unit * (i + 1), nextHeight);
+		m_landScape->generateLandScape(point1, point2);
+	}
+
+	m_testTank = TankFactory::buildTank(10, 50, 0);
+	m_pScene->addItem(m_testTank);
 }

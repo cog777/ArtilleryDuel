@@ -22,16 +22,16 @@ MainWindow::~MainWindow()
 void MainWindow::initializeGUI()
 {
     showFullScreen();
-    m_pScene = new QGraphicsScene(ui->graphicsView);
-	qint32 width = ui->graphicsView->width();
-	qint32 height = ui->graphicsView->height();
-	m_pGame = new Game(m_pScene, width, height, this);
+	m_scene = new QGraphicsScene(ui->graphicsView);
+	qint32 width = ui->graphicsView->width() - 10;
+	qint32 height = ui->graphicsView->height() - 10;
+	m_game = new Game(m_scene, width, height, this);
 
-    ui->graphicsView->setScene(m_pScene);
+	ui->graphicsView->setScene(m_scene);
     ui->graphicsView->setRenderHint(QPainter::Antialiasing);
 }
 
 void MainWindow::on_exitButton_clicked()
 {
-    close();
+	QApplication::exit(0);
 }

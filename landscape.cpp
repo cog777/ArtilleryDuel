@@ -3,14 +3,19 @@
 #include <QPen>
 
 LandScape::LandScape(qint32 &width, qint32 &heigth, QGraphicsObject *parent) :
-    QGraphicsObject(parent), m_width(width), m_height(heigth)
+	QGraphicsObject(parent),
+	m_image(0),
+	m_imagePainter(0),
+	m_width(width),
+	m_height(heigth)
 {
-    m_pImage = new QImage(m_width, m_height, QImage::Format_RGB32);
-	m_pImage->fill(BACKGROUND_COLOR);
-    m_pImagePainter = new QPainter(m_pImage);
-    m_pImagePainter->setPen(QPen(LANDSCAPE_COLOR));
+	m_image = new QImage(m_width, m_height, QImage::Format_RGB32);
+	m_image->fill(BACKGROUND_COLOR);
+	m_imagePainter = new QPainter(m_image);
+	m_imagePainter->setPen(QPen(LANDSCAPE_COLOR));
 
-    m_heights.resize(m_width + 1);
+	m_heights.clear();
+	m_heights.resize(m_width + 1);
 }
 
 LandScape::~LandScape()
@@ -26,17 +31,17 @@ void LandScape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(option);
     Q_UNUSED(widget);
 
-    painter->drawImage(QRectF(0, 0, m_width, m_height), *m_pImage);
+	painter->drawImage(QRectF(0, 0, m_width, m_height), *m_image);
 }
 
 // Pontokat hasznal:
 
 void LandScape::generateLandScapePoints(const QPoint &point1, const QPoint &point2)
 {
-    static qint32 counter=0;
-    MSG_TO_LOG() << "Counter:" << ++counter;
-    m_pImagePainter->drawPoint(point1);
-    m_pImagePainter->drawPoint(point2);
+	//static qint32 counter=0;
+	//MSG_TO_LOG() << "Counter:" << ++counter;
+	m_imagePainter->drawPoint(point1);
+	m_imagePainter->drawPoint(point2);
 
     if((point2.x() - point1.x()) > 1)
     {
@@ -70,20 +75,25 @@ void LandScape::generateLandScapePoints(const QPoint &point1, const QPoint &poin
         new_y = qrand() % ((high + 1) - low) + low ;
         const QPoint middlePoint(new_x, new_y);
 
-        m_pImagePainter->drawPoint(middlePoint);
+		m_imagePainter->drawPoint(middlePoint);
         m_heights[middlePoint.x()] = middlePoint.y();
 
         generateLandScapePoints(point1, middlePoint);
         generateLandScapePoints(middlePoint, point2);
-    }
+	}
+}
+
+qint32 LandScape::height(const qint32 &at) const
+{
+	return m_heights.at(at);
 }
 
 // Csak korvonalat
 
 void LandScape::generateLandScapeOutLine(const QPoint &point1, const QPoint &point2)
 {
-    static qint32 counter=0;
-    MSG_TO_LOG() << "Counter:" << ++counter;
+	//static qint32 counter=0;
+	//MSG_TO_LOG() << "Counter:" << ++counter;
 
     if((point2.x() - point1.x()) > 1)
     {
@@ -122,7 +132,7 @@ void LandScape::generateLandScapeOutLine(const QPoint &point1, const QPoint &poi
     }
     else
     {
-        m_pImagePainter->drawLine(point1, point2);
+		m_imagePainter->drawLine(point1, point2);
         m_heights[point1.x()] = point1.y();
         m_heights[point2.x()] = point2.y();
     }
@@ -130,10 +140,10 @@ void LandScape::generateLandScapeOutLine(const QPoint &point1, const QPoint &poi
 
 void LandScape::generateLandScape(const QPoint &point1, const QPoint &point2)
 {
-    static qint32 counter=0;
-    MSG_TO_LOG() << "Counter:" << ++counter;
+	//static qint32 counter=0;
+	//MSG_TO_LOG() << "Counter:" << ++counter;
 
-    if((point2.x() - point1.x()) > 1)
+	if((point2.x() - point1.x()) > 1)
     {
         // X kiszamitasa:
         // Pelda: P1.x = 4 P2.x = 2 Igy: (4-2)/2 -> 1 lesz nem pedig a 2 pont kozott.
@@ -171,8 +181,8 @@ void LandScape::generateLandScape(const QPoint &point1, const QPoint &point2)
     }
     else
     {
-        m_pImagePainter->drawLine(point1, QPoint(point1.x(), m_height));
-        m_pImagePainter->drawLine(point2, QPoint(point2.x(), m_height));
+		m_imagePainter->drawLine(point1, QPoint(point1.x(), m_height));
+		m_imagePainter->drawLine(point2, QPoint(point2.x(), m_height));
         m_heights[point1.x()] = point1.y();
         m_heights[point2.x()] = point2.y();
     }

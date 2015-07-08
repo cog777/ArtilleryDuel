@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QApplication>
 #include <QGraphicsScene>
 #include <QDateTime>
 #include <QPainter>
@@ -27,8 +28,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QGraphicsScene *m_pScene;
-    Game *m_pGame;
+	QGraphicsScene *m_scene;
+	Game *m_game;
 };
 
 #endif // MAINWINDOW_H

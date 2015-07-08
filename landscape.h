@@ -20,13 +20,14 @@ public:
     void generateLandScape(const QPoint &point1, const QPoint &point2);
 
     void generateLandScapeOutLine(const QPoint &point1, const QPoint &point2);
-    void generateLandScapePoints(const QPoint &point1, const QPoint &point2);
+	void generateLandScapePoints(const QPoint &point1, const QPoint &point2);
 
-    QVector<qint32> m_heights;
+	qint32 height(const qint32 &at) const;
 
 private:
-    QImage *m_pImage;
-    QPainter *m_pImagePainter;
+	QVector<qint32> m_heights;
+	QImage *m_image;
+	QPainter *m_imagePainter;
     qint32 m_width;
     qint32 m_height;
 };
