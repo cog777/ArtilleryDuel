@@ -10,7 +10,7 @@ const QColor BACKGROUND_COLOR = QColor("blue");
 const qint32 GROUNDSPLIT = 5; //At least 2
 
 // Smaller value cause bigger mountain.
-const qint32 MAX_MOUNTAIN_HEIGHT = 200;
-const qint32 MIN_MOUNTAIN_HEIGHT = 350;
+const qint32 MAX_MOUNTAIN_HEIGHT = 600; // 200
+const qint32 MIN_MOUNTAIN_HEIGHT = 100; // 350
 
 #endif // SETTINGS_H

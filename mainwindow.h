@@ -15,19 +15,21 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+	explicit MainWindow(QWidget *parent = 0);
+	~MainWindow();
 
 private slots:
-    void initializeGUI();
+	void initializeGUI();
 
-    void on_exitButton_clicked();
+	void on_exitButton_clicked();
+
+	void on_pushButton_clicked();
 
 private:
-    Ui::MainWindow *ui;
+	Ui::MainWindow *ui;
 	QGraphicsScene *m_scene;
 	Game *m_game;
 };
