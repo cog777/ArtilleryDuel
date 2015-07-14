@@ -20,22 +20,6 @@ void Game::initialize()
 {
 	m_pScene->addItem(m_landScape);
 
-	/*const qint32 unit = m_width / GROUNDSPLIT;
-	for(int i = 0; i < GROUNDSPLIT; i++)
-	{
-		// qrand() % ((High + 1) - Low) + Low)
-		qint32 prevHeight;
-		if(i == 0) prevHeight = qrand() % ((MIN_MOUNTAIN_HEIGHT + 1) - MAX_MOUNTAIN_HEIGHT) + MAX_MOUNTAIN_HEIGHT;
-		else prevHeight = m_landScape->height(unit * i);
-
-		qint32 nextHeight;
-		if(i == 0 || i == GROUNDSPLIT - 1 || i == GROUNDSPLIT - 2) nextHeight = qrand() % ((MIN_MOUNTAIN_HEIGHT + 1) - MAX_MOUNTAIN_HEIGHT) + MAX_MOUNTAIN_HEIGHT;
-		else nextHeight = qrand() % ((m_height + 1) - 1) + 1;
-
-		const QPoint point1 = QPoint(unit * i, prevHeight);
-		const QPoint point2 = QPoint(unit * (i + 1), nextHeight);
-		m_landScape->generateLandScape(point1, point2);
-	}*/
 	qint32 prevHeight = -1;
 	const qint32 unit = m_width / GROUNDSPLIT;
 	for(int i = 0; i < GROUNDSPLIT; i++)
@@ -58,7 +42,16 @@ void Game::initialize()
 		m_landScape->generateLandScape(point1, point2);
 	}
 
+	setupPlayers();
+}
 
-	m_testTank = TankFactory::buildTank(10, 50, 0);
-	m_pScene->addItem(m_testTank);
+void Game::setupPlayers()
+{
+	m_tank1 = TankFactory::buildTank(TANK_DISTANCE_FROM_SIDE, m_landScape->height(TANK_DISTANCE_FROM_SIDE), PLAYER_1);
+
+	const qint32 x = m_width - TANK_DISTANCE_FROM_SIDE;
+	m_tank2 = TankFactory::buildTank(x, m_landScape->height(x), PLAYER_2);
+
+	m_pScene->addItem(m_tank1);
+	m_pScene->addItem(m_tank2);
 }

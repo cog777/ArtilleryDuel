@@ -18,12 +18,14 @@ public:
 
 public slots:
     void initialize();
+	void setupPlayers();
 
 private:
 	void generateLandScape();
     QPointer<QGraphicsScene> m_pScene;
     LandScape *m_landScape;
-    Tank *m_testTank;
+	Tank *m_tank1;
+	Tank *m_tank2;
     qint32 m_width;
     qint32 m_height;
 };
