@@ -5,6 +5,7 @@
 #include <QImage>
 #include <QRectF>
 #include <QPainter>
+#include "cannon.h"
 
 class Tank : public QGraphicsObject
 {
@@ -15,12 +16,13 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+	Cannon *cannon() const;
+
 private:
     QImage *m_tankImg;
+	Cannon *m_cannon;
 
-    qreal posX;
-    qreal posY;
-    qint32 pID;
+	bool isLeft;
 };
 
 #endif // TANK_H

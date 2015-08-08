@@ -14,6 +14,10 @@ const qint32 MAX_MOUNTAIN_HEIGHT = 600;
 const qint32 MIN_MOUNTAIN_HEIGHT = 100;
 
 const qint32 TANK_MINIMIZE = 2.5;
+const qint32 TANK_CANNON_SIZE = 25;
+const float CANNON_WIDTH = 2;
+const qint32 MAX_DEGREE = 80;
+const qint32 MIN_DEGREE = -5;
 
 //Player ID-s
 const qint32 PLAYER_1 = 0;

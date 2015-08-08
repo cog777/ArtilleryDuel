@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/images/player">
         <file>Body.png</file>
-        <file>Cannon.png</file>
     </qresource>
 </RCC>
