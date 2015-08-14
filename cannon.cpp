@@ -1,10 +1,10 @@
 #include "cannon.h"
 #include "settings.h"
 
-Cannon::Cannon(const qint32 &x, const qint32 &y, const bool &isLeft, QGraphicsObject *parent)
-	: QGraphicsObject(parent),
-	  m_degree(0),
-	  m_isLeft(isLeft)
+Cannon::Cannon(const qint32 &x, const qint32 &y, const bool &isLeft, QGraphicsObject *parent) :
+	QGraphicsObject(parent),
+	m_degree(0),
+	m_isLeft(isLeft)
 {
 	setPos(x, y);
 	setDegree(0);
@@ -24,7 +24,6 @@ void Cannon::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 	pen.setWidth(CANNON_WIDTH);
 	painter->setPen(pen);
 	painter->drawLine(m_lineCannon);
-	pen.setColor(Qt::magenta);
 }
 
 void Cannon::setDegree(const float &d)
@@ -44,9 +43,20 @@ void Cannon::setDegree(const float &d)
 	m_lineCannon.setLine(0, 0, toX, -toY);
 	m_currentBoundingRect = QRectF(0, -toY, toX, toY);
 	m_degree = degree;
+	update(boundingRect());
 }
 
 float Cannon::degree() const
 {
 	return m_degree;
+}
+
+void Cannon::setGunPowder(const qint32 &gunPowder)
+{
+	m_gunPowder = gunPowder;
+}
+
+qint32 Cannon::gunPowder() const
+{
+	return m_gunPowder;
 }

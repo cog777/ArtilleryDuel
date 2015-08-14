@@ -5,7 +5,8 @@ Tank::Tank(const qreal &x, const qreal &y, const bool &isLeft, QGraphicsObject *
 	QGraphicsObject(parent),
 	m_tankImg(0),
 	m_cannon(0),
-	isLeft(isLeft)
+	m_health(100),
+	m_isLeft(isLeft)
 {
 	QImage img = QImage(":/images/player/Body.png");
 	img = img.scaled(img.width() / TANK_MINIMIZE, img.height() / TANK_MINIMIZE);

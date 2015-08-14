@@ -18,12 +18,16 @@ public:
 
 	void setDegree(const float &degree);
 	float degree() const;
+	void setGunPowder(const qint32 &gunPowder);
+	qint32 gunPowder() const;
 
 private:
 	QRectF m_currentBoundingRect;
 	QLine m_lineCannon;
 	float m_degree;
 	float m_isLeft;
+
+	qint32 m_gunPowder;
 };
 
 #endif // CANNON_H

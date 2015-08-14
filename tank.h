@@ -21,8 +21,9 @@ public:
 private:
     QImage *m_tankImg;
 	Cannon *m_cannon;
+	float m_health;
 
-	bool isLeft;
+	bool m_isLeft;
 };
 
 #endif // TANK_H

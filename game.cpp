@@ -2,11 +2,14 @@
 #include <QDebug>
 #include "settings.h"
 
-Game::Game(QPointer<QGraphicsScene> pScene, qint32 &width, qint32 &height, QObject *parent)
-	: QObject(parent),
-	  m_pScene(pScene),
-	  m_width(width),
-	  m_height(height)
+Game::Game(QPointer<QGraphicsScene> pScene, qint32 &width, qint32 &height, QObject *parent) :
+	QObject(parent),
+	m_pScene(pScene),
+	m_landScape(0),
+	m_tank1(0),
+	m_tank2(0),
+	m_width(width),
+	m_height(height)
 {
 	m_pScene->setSceneRect(0, 0, m_width, m_height);
 	m_landScape = new LandScape(m_width, m_height);
@@ -14,7 +17,11 @@ Game::Game(QPointer<QGraphicsScene> pScene, qint32 &width, qint32 &height, QObje
 }
 
 Game::~Game()
-{}
+{
+	delete m_tank1;
+	delete m_tank2;
+	delete m_landScape;
+}
 
 void Game::initialize()
 {
@@ -32,7 +39,6 @@ void Game::initialize()
 		else
 		{
 			leftHeight = prevHeight;
-
 		}
 
 		qint32 rightHeight = m_height - (qrand() % (MAX_MOUNTAIN_HEIGHT) + MIN_MOUNTAIN_HEIGHT);
@@ -54,4 +60,38 @@ void Game::setupPlayers()
 
 	m_pScene->addItem(m_tank1);
 	m_pScene->addItem(m_tank2);
+}
+
+void Game::p1_degreeChanged(const qint32 &value)
+{
+	Cannon *cannon = m_tank1->cannon();
+	cannon->setDegree(value);
+}
+
+void Game::p1_gunPowderChanged(const qint32 value)
+{
+	Cannon *cannon = m_tank1->cannon();
+	cannon->setGunPowder(value);
+}
+
+void Game::p1_shoot()
+{
+	changeControl(PLAYER_2);
+}
+
+void Game::p2_degreeChanged(const qint32 &value)
+{
+	Cannon *cannon = m_tank2->cannon();
+	cannon->setDegree(value);
+}
+
+void Game::p2_gunPowderChanged(const qint32 value)
+{
+	Cannon *cannon = m_tank2->cannon();
+	cannon->setGunPowder(value);
+}
+
+void Game::p2_shoot()
+{
+	changeControl(PLAYER_1);
 }
