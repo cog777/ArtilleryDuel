@@ -19,7 +19,10 @@ LandScape::LandScape(qint32 &width, qint32 &heigth, QGraphicsObject *parent) :
 }
 
 LandScape::~LandScape()
-{}
+{
+	delete m_imagePainter;
+	delete m_image;
+}
 
 QRectF LandScape::boundingRect() const
 {
@@ -32,6 +35,11 @@ void LandScape::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     Q_UNUSED(widget);
 
 	painter->drawImage(QRectF(0, 0, m_width, m_height), *m_image);
+
+/*	QPen pen;
+	pen.setColor(Qt::magenta);
+	painter->setPen(pen);
+	painter->drawRect(boundingRect());*/
 }
 
 // Pontokat hasznal:
@@ -53,9 +61,6 @@ void LandScape::generateLandScapePoints(const QPoint &point1, const QPoint &poin
         // Y kiszamitasa:
         // Meg kell hatarozni melyik szelso pont van lejjebb,
         // ahhoz hozza kell adni azt az erteket ami a pont 2 magassaga kozott van
-//        const QPoint middlePoint((point2.x() - point1.x()) / 2 + point1.x(),
-//                                 qrand() % (((point1.y() - point2.y()) + 1) - 1) + 1);
-
         qint32 new_y = 0;
         qint32 high, low;
         high = low = 0;
@@ -88,6 +93,11 @@ qint32 LandScape::height(const qint32 &at) const
 	return m_heights.at(at);
 }
 
+/*void LandScape::explodeAt(const qint32 x, const qint32 y)
+{
+
+}*/
+
 // Csak korvonalat
 
 void LandScape::generateLandScapeOutLine(const QPoint &point1, const QPoint &point2)
@@ -99,15 +109,11 @@ void LandScape::generateLandScapeOutLine(const QPoint &point1, const QPoint &poi
     {
         // X kiszamitasa:
         // Pelda: P1.x = 4 P2.x = 2 Igy: (4-2)/2 -> 1 lesz nem pedig a 2 pont kozott.
-        //const QPoint middlePoint((point2.x() - point1.x()) / 2, qrand() % (((point1.y() - point2.y()) + 1) - 1) + 1);
         qint32 new_x = (point2.x() - point1.x()) / 2 + point1.x();
 
         // Y kiszamitasa:
         // Meg kell hatarozni melyik szelso pont van lejjebb,
         // ahhoz hozza kell adni azt az erteket ami a pont 2 magassaga kozott van
-//        const QPoint middlePoint((point2.x() - point1.x()) / 2 + point1.x(),
-//                                 qrand() % (((point1.y() - point2.y()) + 1) - 1) + 1);
-
         qint32 new_y = 0;
         qint32 high, low;
         high = low = 0;
@@ -147,15 +153,11 @@ void LandScape::generateLandScape(const QPoint &point1, const QPoint &point2)
     {
         // X kiszamitasa:
         // Pelda: P1.x = 4 P2.x = 2 Igy: (4-2)/2 -> 1 lesz nem pedig a 2 pont kozott.
-        //const QPoint middlePoint((point2.x() - point1.x()) / 2, qrand() % (((point1.y() - point2.y()) + 1) - 1) + 1);
         qint32 new_x = (point2.x() - point1.x()) / 2 + point1.x();
 
         // Y kiszamitasa:
         // Meg kell hatarozni melyik szelso pont van lejjebb,
         // ahhoz hozza kell adni azt az erteket ami a pont 2 magassaga kozott van
-//        const QPoint middlePoint((point2.x() - point1.x()) / 2 + point1.x(),
-//                                 qrand() % (((point1.y() - point2.y()) + 1) - 1) + 1);
-
         qint32 new_y = 0;
         qint32 high, low;
         high = low = 0;

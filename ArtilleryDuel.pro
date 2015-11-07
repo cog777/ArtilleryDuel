@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     landscape.cpp \
     tankfactory.cpp \
     tank.cpp \
-    cannon.cpp
+    cannon.cpp \
+    bullet.cpp
 
 HEADERS  += mainwindow.h \
     game.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     debug.h \
     tankfactory.h \
     tank.h \
-    cannon.h
+    cannon.h \
+    bullet.h
 
 FORMS    += mainwindow.ui
 

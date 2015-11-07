@@ -24,6 +24,9 @@ public:
 
 	qint32 height(const qint32 &at) const;
 
+/*public slots:
+	void explodeAt(const qint32 x, const qint32 y);*/
+
 private:
 	QVector<qint32> m_heights;
 	QImage *m_image;

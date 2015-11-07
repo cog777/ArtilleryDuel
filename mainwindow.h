@@ -9,6 +9,7 @@
 #include <QTimer>
 #include <QString>
 #include "game.h"
+#include "cannon.h"
 
 namespace Ui {
 class MainWindow;
@@ -22,12 +23,22 @@ public:
 	explicit MainWindow(QWidget *parent = 0);
 	~MainWindow();
 
+	qint32 controlState() const;
+
+signals:
+	void p1_degreeChanged(int);
+	void p2_degreeChanged(int);
+	void p1_gunPowderChanged(int);
+	void p2_gunPowderChanged(int);
+	void p1_fire();
+	void p2_fire();
+
 public slots:
-	void changeControl(const qint32 &player);
+	void changeControl(const Players &player);
 
 private slots:
-	void p1_degreeChanged(const qint32 value);
-	void p2_degreeChanged(const qint32 value);
+	void p1_updateAngleDisplay(const int &value);
+	void p2_updateAngleDisplay(const int &value);
 
 	void initializeGUI();
 
@@ -36,10 +47,9 @@ private slots:
 	void on_regenerateButton_clicked();
 
 private:
-	void connectSignalsAndSlots();
-
 	Ui::MainWindow *ui;
 	QGraphicsScene *m_scene;
+	Players m_controlState;
 	Game *m_game;
 };
 

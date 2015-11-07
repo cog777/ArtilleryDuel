@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>176</width>
-    <height>532</height>
+    <width>237</width>
+    <height>592</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,9 +35,15 @@
       </item>
       <item>
        <widget class="QGroupBox" name="p1_controlBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>79</width>
+          <width>100</width>
           <height>555555</height>
          </size>
         </property>
@@ -80,14 +86,17 @@
          <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Gunpowder:</string>
+            <string>Gunpowder</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="p1_gunPowder">
+          <widget class="QSlider" name="p1_gPowderSlider">
+           <property name="minimum">
+            <number>20</number>
+           </property>
            <property name="maximum">
-            <number>100</number>
+            <number>70</number>
            </property>
            <property name="singleStep">
             <number>5</number>
@@ -116,10 +125,10 @@
             <string/>
            </property>
            <property name="text">
-            <string>0°</string>
+            <string>0ᵒ</string>
            </property>
            <property name="maxLength">
-            <number>4</number>
+            <number>32767</number>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -151,9 +160,15 @@
       </item>
       <item>
        <widget class="QGroupBox" name="p2_controlBox">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>79</width>
+          <width>100</width>
           <height>555555</height>
          </size>
         </property>
@@ -201,7 +216,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSlider" name="p2_gunPowder">
+          <widget class="QSlider" name="p2_gPowderSlider">
            <property name="maximum">
             <number>100</number>
            </property>
@@ -225,11 +240,14 @@
          </item>
          <item>
           <widget class="QLineEdit" name="p2_angleDisplay">
+           <property name="inputMask">
+            <string/>
+           </property>
            <property name="text">
-            <string>0°</string>
+            <string>0ᵒ</string>
            </property>
            <property name="maxLength">
-            <number>4</number>
+            <number>32767</number>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -273,7 +291,7 @@
        <widget class="QPushButton" name="regenerateButton">
         <property name="maximumSize">
          <size>
-          <width>79</width>
+          <width>100</width>
           <height>23</height>
          </size>
         </property>
@@ -286,7 +304,7 @@
        <widget class="QPushButton" name="exitButton">
         <property name="maximumSize">
          <size>
-          <width>79</width>
+          <width>100</width>
           <height>23</height>
          </size>
         </property>

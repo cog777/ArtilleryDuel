@@ -1,6 +1,9 @@
-#include "game.h"
 #include <QDebug>
+#include "game.h"
+#include "mainwindow.h"
 #include "settings.h"
+
+extern MainWindow *mainWindow;
 
 Game::Game(QPointer<QGraphicsScene> pScene, qint32 &width, qint32 &height, QObject *parent) :
 	QObject(parent),
@@ -13,14 +16,18 @@ Game::Game(QPointer<QGraphicsScene> pScene, qint32 &width, qint32 &height, QObje
 {
 	m_pScene->setSceneRect(0, 0, m_width, m_height);
 	m_landScape = new LandScape(m_width, m_height);
+	connect(mainWindow, &MainWindow::p1_fire, this, &Game::p1_shoot);
+	connect(mainWindow, &MainWindow::p2_fire, this, &Game::p2_shoot);
+
 	initialize();
 }
 
 Game::~Game()
 {
-	delete m_tank1;
+	//It makes "Program has unexpectedly finished", but why?
+/*	delete m_tank1;
 	delete m_tank2;
-	delete m_landScape;
+	delete m_landScape;*/
 }
 
 void Game::initialize()
@@ -53,45 +60,39 @@ void Game::initialize()
 
 void Game::setupPlayers()
 {
-	m_tank1 = TankFactory::buildTank(TANK_DISTANCE_FROM_SIDE, m_landScape->height(TANK_DISTANCE_FROM_SIDE), PLAYER_1);
+	m_tank1 = TankFactory::buildTank(TANK_DISTANCE_FROM_SIDE, m_landScape->height(TANK_DISTANCE_FROM_SIDE), Player_1);
 
 	const qint32 x = m_width - TANK_DISTANCE_FROM_SIDE;
-	m_tank2 = TankFactory::buildTank(x, m_landScape->height(x), PLAYER_2);
+	m_tank2 = TankFactory::buildTank(x, m_landScape->height(x), Player_2);
 
 	m_pScene->addItem(m_tank1);
 	m_pScene->addItem(m_tank2);
 }
 
-void Game::p1_degreeChanged(const qint32 &value)
-{
-	Cannon *cannon = m_tank1->cannon();
-	cannon->setDegree(value);
-}
-
-void Game::p1_gunPowderChanged(const qint32 value)
-{
-	Cannon *cannon = m_tank1->cannon();
-	cannon->setGunPowder(value);
-}
-
 void Game::p1_shoot()
 {
-	changeControl(PLAYER_2);
-}
-
-void Game::p2_degreeChanged(const qint32 &value)
-{
-	Cannon *cannon = m_tank2->cannon();
-	cannon->setDegree(value);
-}
-
-void Game::p2_gunPowderChanged(const qint32 value)
-{
-	Cannon *cannon = m_tank2->cannon();
-	cannon->setGunPowder(value);
+	mainWindow->changeControl(Nobody);
+	Bullet *bullet = m_tank1->cannon()->shoot();
+	m_pCurrentBullet = bullet;
+	connect(bullet, &Bullet::destroyed, this, &Game::p1_shootingFinished);
 }
 
 void Game::p2_shoot()
 {
-	changeControl(PLAYER_1);
+	mainWindow->changeControl(Nobody);
+	Bullet *bullet = m_tank2->cannon()->shoot();
+	m_pCurrentBullet = bullet;
+	connect(bullet, &Bullet::destroyed, this, &Game::p2_shootingFinished);
+}
+
+void Game::p1_shootingFinished()
+{
+	mainWindow->changeControl(Player_2);
+	disconnect(m_pCurrentBullet, &Bullet::destroyed, this, &Game::p1_shootingFinished);
+}
+
+void Game::p2_shootingFinished()
+{
+	mainWindow->changeControl(Player_1);
+	disconnect(m_pCurrentBullet, &Bullet::destroyed, this, &Game::p2_shootingFinished);
 }

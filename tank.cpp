@@ -24,7 +24,7 @@ Tank::Tank(const qreal &x, const qreal &y, const bool &isLeft, QGraphicsObject *
 
 Tank::~Tank()
 {
-    delete m_tankImg;
+	delete m_tankImg;
 }
 
 QRectF Tank::boundingRect() const

@@ -37,3 +37,4 @@ Icon
 *.user
 *.pro.user
 *.pro.user.*
+qrc_*.cpp

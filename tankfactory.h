@@ -3,14 +3,15 @@
 
 #include <QGraphicsObject>
 #include "tank.h"
+#include "settings.h"
 
 class TankFactory
 {
 public:
     TankFactory();
 
-    static Tank *buildTank(const qreal &x, const qreal &y,
-                           const qint32 &playerID, QGraphicsObject *parent = 0);
+	static Tank *buildTank(const qreal &x, const qreal &y,
+						   const Players &player, QGraphicsObject *parent = 0);
 };
 
 #endif // TANKFACTORY_H
